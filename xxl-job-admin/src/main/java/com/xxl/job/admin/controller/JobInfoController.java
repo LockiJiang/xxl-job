@@ -1,5 +1,6 @@
 package com.xxl.job.admin.controller;
 
+import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.exception.XxlJobException;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
@@ -101,32 +102,44 @@ public class JobInfoController {
 	
 	@RequestMapping("/add")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public ReturnT<String> add(XxlJobInfo jobInfo) {
 		return xxlJobService.add(jobInfo);
 	}
 	
 	@RequestMapping("/update")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public ReturnT<String> update(XxlJobInfo jobInfo) {
 		return xxlJobService.update(jobInfo);
 	}
 	
 	@RequestMapping("/remove")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public ReturnT<String> remove(int id) {
 		return xxlJobService.remove(id);
 	}
 	
 	@RequestMapping("/stop")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public ReturnT<String> pause(int id) {
 		return xxlJobService.stop(id);
 	}
 	
 	@RequestMapping("/start")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public ReturnT<String> start(int id) {
 		return xxlJobService.start(id);
+	}
+	
+	@RequestMapping("/loadJob")
+	@ResponseBody
+	@PermissionLimit(limit=false)
+	public XxlJobInfo loadJob(int id) {
+		return xxlJobService.loadJob(id);
 	}
 	
 	@RequestMapping("/trigger")

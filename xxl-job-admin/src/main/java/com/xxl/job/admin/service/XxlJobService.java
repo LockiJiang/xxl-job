@@ -83,4 +83,11 @@ public interface XxlJobService {
 	 */
 	public ReturnT<Map<String,Object>> chartInfo(Date startDate, Date endDate);
 
+	/**
+	 * get job
+	 * @param id
+	 * @return
+	 */
+	public XxlJobInfo loadJob(int id);
+
 }
