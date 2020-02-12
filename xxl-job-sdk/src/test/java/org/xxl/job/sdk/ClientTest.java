@@ -69,4 +69,10 @@ public class ClientTest {
 		XxlJobClient client = new XxlJobClient();
 		System.out.println(client.getJob(4 + ""));
 	}
+	
+	@Test
+	public void jobLog() {
+		XxlJobClient client = new XxlJobClient();
+		System.out.println(client.jobLog(4 + ""));
+	}
 }

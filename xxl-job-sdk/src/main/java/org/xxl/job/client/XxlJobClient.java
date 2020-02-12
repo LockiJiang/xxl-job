@@ -1,11 +1,13 @@
 package org.xxl.job.client;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.xxl.job.client.model.ReturnT;
 import org.xxl.job.client.model.XxlJobInfo;
+import org.xxl.job.client.model.XxlJobLog;
 import org.xxl.job.client.util.HttpUtil;
 
 import com.alibaba.fastjson.JSON;
@@ -163,6 +165,28 @@ public class XxlJobClient {
 			returnT = new ReturnT(false, e.getMessage(), null);
 		}
 		return returnT;
+	}
+	
+	/**
+	 * 任务执行日志
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<XxlJobLog> jobLog(String id) {
+		String url = webUrl + log;
+		List<XxlJobLog> logs = null;
+		try {
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("jobId", id);
+			paramMap.put("jobGroup", "0");
+			paramMap.put("logStatus", "-1");
+			String result = new HttpUtil().post(url, paramMap);
+			logs = JSON.parseObject(result).getJSONArray("data").toJavaList(XxlJobLog.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return logs;
 	}
 
 	/**
