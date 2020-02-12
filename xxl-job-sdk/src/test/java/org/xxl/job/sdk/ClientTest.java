@@ -15,7 +15,7 @@ public class ClientTest {
 		jobInfo.setExecutorBlockStrategy(ExecutorBlockStrategyEnum.SERIAL_EXECUTION);
 		jobInfo.setExecutorFailRetryCount(0);
 		jobInfo.setExecutorHandler("procedureHandler");
-		jobInfo.setExecutorParam("{\"type\":\" DB2\",\"url\":\" jdbc:db2://10.0.0.65:50000/DATANALY\",\"user\":\"db2admin\",\"code\":\"db2admin\",\"pros\":[\"PD_ZM_K_RLIC_D\",\"PD_ZM_K_CASEINFO_D(5)\"]}");
+		jobInfo.setExecutorParam("{\"type\":\" DB2\",\"url\":\"jdbc:db2://10.0.0.65:50000/DATANALY\",\"user\":\"db2admin\",\"code\":\"db2admin\",\"pros\":[\"PD_ZM_K_RLIC_D\",\"PD_ZM_K_CASEINFO_D(5)\"]}");
 		jobInfo.setExecutorRouteStrategy(ExecutorRouteStrategyEnum.FIRST);
 		jobInfo.setExecutorTimeout(0);
 		jobInfo.setJobCron("0 0 12 * * ? *");

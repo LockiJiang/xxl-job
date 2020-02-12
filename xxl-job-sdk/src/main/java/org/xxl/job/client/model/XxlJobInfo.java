@@ -1,5 +1,6 @@
 package org.xxl.job.client.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.xxl.job.client.enums.ExecutorBlockStrategyEnum;
@@ -11,7 +12,9 @@ import org.xxl.job.client.enums.GlueTypeEnum;
  *
  * @author xuxueli 2016-1-12 18:25:49
  */
-public class XxlJobInfo {
+public class XxlJobInfo implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * 主键ID
 	 */

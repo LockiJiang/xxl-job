@@ -229,7 +229,7 @@ public class HttpUtil {
 		StringBuffer postedData = new StringBuffer();
 		for (Iterator<String> it = set.iterator(); it.hasNext();) {
 			String key = it.next();
-			String value = paramMap.get(key);
+			String value = paramMap.get(key) == null ? "" : paramMap.get(key);
 			postedData.append(key);
 			postedData.append("=");
 			try {
