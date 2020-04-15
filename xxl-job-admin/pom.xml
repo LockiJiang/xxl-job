@@ -125,4 +125,5 @@
 		</plugins>
 	</build>
 
+	<version>2.2.0-rpc-alarm</version>
 </project>
