@@ -48,6 +48,11 @@ public class XxlJobInfo implements Serializable{
 	 */
 	private String alarmEmail;
 	/**
+	 * 报警ID，多个报警以","分隔</br>
+	 * feature/alarm-manage分支添加该属性，替代alarmEmail
+	 */
+	private String alarmIds;
+	/**
 	 * 执行器路由策略
 	 */
 	private String executorRouteStrategy = ExecutorRouteStrategyEnum.FIRST.name();
@@ -212,6 +217,26 @@ public class XxlJobInfo implements Serializable{
 	 */
 	public void setAlarmEmail(String alarmEmail) {
 		this.alarmEmail = alarmEmail;
+	}
+	
+	/**
+	 * 获取任务报警ID列表</br>
+	 * feature/alarm-manage分支添加该属性，替代alarmEmail
+	 * 
+	 * @return
+	 */
+	public String getAlarmIds() {
+		return alarmIds;
+	}
+
+	/**
+	 * 设置任务报警ID列表</br>
+	 * feature/alarm-manage分支添加该属性，替代alarmEmail
+	 * 
+	 * @param alarmIds
+	 */
+	public void setAlarmIds(String alarmIds) {
+		this.alarmIds = alarmIds;
 	}
 
 	/**

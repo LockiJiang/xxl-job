@@ -11,6 +11,7 @@ public class ClientTest {
 	public void addJob() {
 		XxlJobInfo jobInfo = new XxlJobInfo();
 		jobInfo.setAlarmEmail("jiangyang003@chinssofti.com");
+		jobInfo.setAlarmIds("1");
 		jobInfo.setAuthor("蒋洋");
 		jobInfo.setExecutorBlockStrategy(ExecutorBlockStrategyEnum.SERIAL_EXECUTION);
 		jobInfo.setExecutorFailRetryCount(0);
@@ -29,8 +30,9 @@ public class ClientTest {
 	@Test
 	public void updateJob() {
 		XxlJobInfo jobInfo = new XxlJobInfo();
-		jobInfo.setId(4);
+		jobInfo.setId(2);
 		jobInfo.setAlarmEmail("jiangyang003@chinssofti.com");
+		jobInfo.setAlarmIds("1");
 		jobInfo.setAuthor("蒋洋");
 		jobInfo.setExecutorBlockStrategy(ExecutorBlockStrategyEnum.SERIAL_EXECUTION);
 		jobInfo.setExecutorFailRetryCount(0);
@@ -49,30 +51,36 @@ public class ClientTest {
 	@Test
 	public void startJob() {
 		XxlJobClient client = new XxlJobClient();
-		System.out.println(client.startJob(4 + ""));
+		System.out.println(client.startJob(2 + ""));
 	}
 	
 	@Test
 	public void stopJob() {
 		XxlJobClient client = new XxlJobClient();
-		System.out.println(client.stopJob(4 + ""));
+		System.out.println(client.stopJob(2 + ""));
 	}
 	
 	@Test
 	public void removeJob() {
 		XxlJobClient client = new XxlJobClient();
-		System.out.println(client.deleteJob(7 + ""));
+		System.out.println(client.deleteJob(2 + ""));
 	}
 	
 	@Test
 	public void loadJob() {
 		XxlJobClient client = new XxlJobClient();
-		System.out.println(client.getJob(4 + ""));
+		System.out.println(client.getJob(2 + ""));
 	}
 	
 	@Test
 	public void jobLog() {
 		XxlJobClient client = new XxlJobClient();
-		System.out.println(client.jobLog(4 + ""));
+		System.out.println(client.jobLog(2 + ""));
+	}
+	
+	@Test
+	public void alarmList() {
+		XxlJobClient client = new XxlJobClient();
+		System.out.println(client.alarmList(0, 10, null, null, null));
 	}
 }

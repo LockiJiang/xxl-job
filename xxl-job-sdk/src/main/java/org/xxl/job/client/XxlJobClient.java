@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.xxl.job.client.enums.JobAlarmerEnum;
 import org.xxl.job.client.model.ReturnT;
 import org.xxl.job.client.model.XxlJobInfo;
 import org.xxl.job.client.model.XxlJobLog;
@@ -24,6 +25,7 @@ public class XxlJobClient {
 	private String start = rb.getString("xxl.admin.api.start");
 	private String stop = rb.getString("xxl.admin.api.stop");
 	private String log = rb.getString("xxl.admin.api.log");
+	private String alarmList = rb.getString("xxl.admin.api.alarmList");
 
 	/**
 	 * API调用返回值封装
@@ -188,6 +190,36 @@ public class XxlJobClient {
 		}
 		return logs;
 	}
+	
+	/**
+	 * 查询报警信息</br>
+	 * XXL官方版本无此接口，feature/alarm-manage分支添加该接口</br>
+	 * 在该版本中，任务XxlJobInfo.alarmEmail属性将失效，由XxlJobInfo.alarmIds替代
+	 * 
+	 * @param start页码
+	 * @param length页面大小
+	 * @param alarmEnum报警类型
+	 * @param alarmName报警名称
+	 * @param alarmDesc报警描述
+	 * @return
+	 */
+	public Map<String, Object> alarmList(int start, int length, JobAlarmerEnum alarmerEnum, String alarmName, String alarmDesc) {
+		String url = webUrl + alarmList;
+		Map<String, Object> alarms = null;
+		try {
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("start", "" + start);
+			paramMap.put("length", "" + length);
+			paramMap.put("alarmEnum", alarmerEnum != null ? alarmerEnum.name() : null);
+			paramMap.put("alarmName", alarmName);
+			paramMap.put("alarmDesc", alarmDesc);
+			String result = new HttpUtil().post(url, paramMap);
+			alarms = JSON.parseObject(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return alarms;
+	}
 
 	/**
 	 * 将任务参数转换为Map<String, String>作为http请求参数
@@ -205,6 +237,10 @@ public class XxlJobClient {
 		map.put("jobDesc", jobInfo.getJobDesc());
 		map.put("author", jobInfo.getAuthor());
 		map.put("alarmEmail", jobInfo.getAlarmEmail());
+		//feature/alarm-manage分支alarmIds优先级高于alarmEmail
+		if (jobInfo.getAlarmIds() != null && jobInfo.getAlarmIds().trim().length() > 0) {
+			map.put("alarmEmail", jobInfo.getAlarmIds());
+		}
 		map.put("executorRouteStrategy", String.valueOf(jobInfo.getExecutorRouteStrategy()));
 		map.put("executorHandler", jobInfo.getExecutorHandler());
 		map.put("executorBlockStrategy", String.valueOf(jobInfo.getExecutorBlockStrategy()));
