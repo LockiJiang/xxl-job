@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.xxl.job.admin.core.alarm.JobAlarmerEnum;
 import com.xxl.job.admin.core.model.XxlAlarmInfo;
 import com.xxl.job.admin.service.AlarmService;
@@ -37,6 +38,7 @@ public class AlarmController {
 
 	@RequestMapping("/pageList")
 	@ResponseBody
+	@PermissionLimit(limit=false)
 	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
 			@RequestParam(required = false, defaultValue = "10") int length, String alarmEnum, String alarmName, String alarmDesc) {
 
