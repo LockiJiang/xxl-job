@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.conf;
 
+import com.xxl.job.admin.core.alarm.JobAlarmer;
 import com.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.xxl.job.admin.dao.*;
 import org.springframework.beans.factory.DisposableBean;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 /**
  * xxl-job config
@@ -81,9 +83,15 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     private JavaMailSender mailSender;
     @Resource
     private DataSource dataSource;
-
+    @Resource
+    private JobAlarmer jobAlarmer;
+    @Resource
+    private XxlAlarmInfoDao alarmInfoDao;
 
     public String getI18n() {
+        if (!Arrays.asList("zh_CN", "zh_TC", "en").contains(i18n)) {
+            return "zh_CN";
+        }
         return i18n;
     }
 
@@ -144,4 +152,11 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
         return dataSource;
     }
 
+    public JobAlarmer getJobAlarmer() {
+        return jobAlarmer;
+    }
+
+	public XxlAlarmInfoDao getAlarmInfoDao() {
+		return alarmInfoDao;
+	}
 }
