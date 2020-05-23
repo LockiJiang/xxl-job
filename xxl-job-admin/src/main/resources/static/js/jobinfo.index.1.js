@@ -527,7 +527,9 @@ $(function() {
         $("#updateModal .form select[name=glueType]").change();
         
         //alarm info
-        $('#updateModal .selectpicker').selectpicker('val', row.alarmEmail.split(','));
+        if(row.alarmEmail){
+        	$('#updateModal .selectpicker').selectpicker('val', row.alarmEmail.split(','));
+        }
         
         // init-cronGen
         $("#updateModal .form input[name='jobCron']").show().siblings().remove();
