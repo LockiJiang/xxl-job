@@ -17,7 +17,6 @@ import com.alibaba.fastjson.JSONObject;
 public class XxlJobClient {
 	private ResourceBundle rb = ResourceBundle.getBundle("xxl_config");
 	private String webUrl = rb.getString("xxl.admin.url");
-	private int jobGroup = Integer.parseInt(rb.getString("xxl.admin.jobGroup"));
 	private String add = rb.getString("xxl.admin.api.add");
 	private String load = rb.getString("xxl.admin.api.loadJob");
 	private String update = rb.getString("xxl.admin.api.update");
@@ -26,6 +25,78 @@ public class XxlJobClient {
 	private String stop = rb.getString("xxl.admin.api.stop");
 	private String log = rb.getString("xxl.admin.api.log");
 	private String alarmList = rb.getString("xxl.admin.api.alarmList");
+
+	public String getWebUrl() {
+		return webUrl;
+	}
+
+	public void setWebUrl(String webUrl) {
+		this.webUrl = webUrl;
+	}
+
+	public String getAdd() {
+		return add;
+	}
+
+	public void setAdd(String add) {
+		this.add = add;
+	}
+
+	public String getLoad() {
+		return load;
+	}
+
+	public void setLoad(String load) {
+		this.load = load;
+	}
+
+	public String getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(String update) {
+		this.update = update;
+	}
+
+	public String getDelete() {
+		return delete;
+	}
+
+	public void setDelete(String delete) {
+		this.delete = delete;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getStop() {
+		return stop;
+	}
+
+	public void setStop(String stop) {
+		this.stop = stop;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public String getAlarmList() {
+		return alarmList;
+	}
+
+	public void setAlarmList(String alarmList) {
+		this.alarmList = alarmList;
+	}
 
 	/**
 	 * API调用返回值封装
@@ -121,7 +192,7 @@ public class XxlJobClient {
 			paramMap.put("id", id);
 			String result = new HttpUtil().post(url, paramMap);
 			jobInfo = JSON.parseObject(result, XxlJobInfo.class);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return jobInfo;
@@ -168,7 +239,7 @@ public class XxlJobClient {
 		}
 		return returnT;
 	}
-	
+
 	/**
 	 * 任务执行日志
 	 * 
@@ -190,7 +261,7 @@ public class XxlJobClient {
 		}
 		return logs;
 	}
-	
+
 	/**
 	 * 查询报警信息</br>
 	 * XXL官方版本无此接口，feature/alarm-manage分支添加该接口</br>
@@ -203,7 +274,8 @@ public class XxlJobClient {
 	 * @param alarmDesc报警描述
 	 * @return
 	 */
-	public Map<String, Object> alarmList(int start, int length, JobAlarmerEnum alarmerEnum, String alarmName, String alarmDesc) {
+	public Map<String, Object> alarmList(int start, int length, JobAlarmerEnum alarmerEnum, String alarmName,
+			String alarmDesc) {
 		String url = webUrl + alarmList;
 		Map<String, Object> alarms = null;
 		try {
@@ -232,12 +304,12 @@ public class XxlJobClient {
 		if (jobInfo.getId() > 0) {
 			map.put("id", String.valueOf(jobInfo.getId()));
 		}
-		map.put("jobGroup", String.valueOf(jobGroup));
+		map.put("jobGroup", String.valueOf(jobInfo.getJobGroup()));
 		map.put("jobCron", jobInfo.getJobCron());
 		map.put("jobDesc", jobInfo.getJobDesc());
 		map.put("author", jobInfo.getAuthor());
 		map.put("alarmEmail", jobInfo.getAlarmEmail());
-		//feature/alarm-manage分支alarmIds优先级高于alarmEmail
+		// feature/alarm-manage分支alarmIds优先级高于alarmEmail
 		if (jobInfo.getAlarmIds() != null && jobInfo.getAlarmIds().trim().length() > 0) {
 			map.put("alarmEmail", jobInfo.getAlarmIds());
 		}
