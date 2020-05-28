@@ -18,9 +18,10 @@ public class XXLConfig {
 	@Bean
 	public XxlJobClient xxlJobClient() {
 		XxlJobClient client = new XxlJobClient();
-		if (urlProperties.getUrl() != null && urlProperties.getUrl().trim().length() > 0) {
-			client.setWebUrl(urlProperties.getUrl());
+		if (urlProperties.getUrl() == null || urlProperties.getUrl().trim().length() == 0) {
+			throw new RuntimeException("xxl.admin.url is required!");
 		}
+		client.setWebUrl(urlProperties.getUrl());
 		URLProperties.Api api = urlProperties.getApi();
 		if (api == null) {
 			return client;
