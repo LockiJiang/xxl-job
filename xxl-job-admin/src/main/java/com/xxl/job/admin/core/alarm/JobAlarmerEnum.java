@@ -1,7 +1,6 @@
 package com.xxl.job.admin.core.alarm;
 
 import com.xxl.job.admin.core.alarm.impl.EmailJobAlarm;
-import com.xxl.job.admin.core.alarm.impl.RpcJobAlarm;
 import com.xxl.job.admin.core.util.I18nUtil;
 
 /**
@@ -9,7 +8,7 @@ import com.xxl.job.admin.core.util.I18nUtil;
  */
 public enum JobAlarmerEnum {
 	EMAIL(I18nUtil.getString("alarminfo_email"), new EmailJobAlarm()),
-	RPC(I18nUtil.getString("alarminfo_rpc"), new RpcJobAlarm());
+	RPC(I18nUtil.getString("alarminfo_rpc"), null);
 
 	JobAlarmerEnum(String title, JobAlarm alarm) {
 		this.title = title;
